@@ -40,78 +40,19 @@ void vizualizar(Nodo * r);
 int  numDatos(Nodo * r);
 void Burbuja(int v[],int n);
 void quicksort(int a[],int primero,int ultimo);
-
-
-
+int principal1();
+int principal2();
+int principal3(); 
 int main(int argc, char** argv) {
- 
+    
+  //  principal1();
     
     
-int v[]={3, 34, 1, 53, 15, 6,2,7};
-int i,j;
 
-
-//Burbuja(v,6);
-// Ordenación
-quicksort(v,0,8);
-
-
-for(i=0;i<8;i++){
-    printf("%d\n",v[i]);
-}
-
-
-   
-    /*
-    Nodo * raiz;
-    raiz=NULL;
-   
-   // inicio del archivo 
-    FILE *flujo = fopen("mis_numeros.txt","rb");
-    if(flujo==NULL){
-        perror("error");
-        return 1;
-    }
-    int numero;
-    double end;
-    double tiempoTotal;
-    while (feof(flujo)==0){
-    
-        fscanf(flujo,"%d \n",&numero);
-        
-        //*********************************
-        clock_t start = clock(); 
-        insertar(&raiz,numero);
-        end=  (((double)clock() - start) / CLOCKS_PER_SEC);
-        tiempoTotal+=end;  
-        printf("Tiempo transcurrido : %f seg", end); 
-        printf("\n");
-        
-        //**********************************
-        
-    }
-    
-    // tiempo en recorrer el arbol...
-    //*************************************
-      double final;
-     // printf("\n"); 
-      clock_t inicio= clock();
-       vizualizar(raiz);
-      final= (((double)clock() - inicio) / CLOCKS_PER_SEC);
-      printf("Tiempo en Recorrer El arbol : %f seg",final); 
-       //*******************************************  
-      int num= numDatos(raiz);
-      printf("\n\nTiempo Total en Insertar  %d Datos al Arbol : %f seg", num,tiempoTotal);
-      fclose(flujo);
-      printf("\n\n El archivo a sido leido correctamente.");
-   
-      //************************************************
-      // final del archivo
-    
-     // return 0;
+     
     
     
-    */
+    
     return (EXIT_SUCCESS);
 }
 
@@ -403,5 +344,131 @@ void quicksort(int a[],int primero,int ultimo){
 
 } 
 
+
+int  principal1(){
+Nodo * raiz;
+    raiz=NULL;
+   
+   // inicio del archivo 
+    FILE *flujo = fopen("mis_numeros.txt","rb");
+    if(flujo==NULL){
+        perror("error");
+        return 1;
+    }
+    int numero;
+    
+    int n;
+    double end;
+    double tiempoTotal;
+    while (feof(flujo)==0){
+    
+        fscanf(flujo,"%d \n",&numero);
+        
+        //*********************************
+        clock_t start = clock(); 
+        insertar(&raiz,numero);
+        end=  (((double)clock() - start) / CLOCKS_PER_SEC);
+        tiempoTotal+=end;  
+        printf("Tiempo transcurrido : %f seg", end); 
+        printf("\n");
+       
+       
+        
+      //**********************************
+        
+    }
+    
+    
+    
+      int tam= numDatos(raiz);
+      printf("Hola a todos mrs min %d \n",tam);
+        
+    
+    // tiempo en recorrer el arbol...
+    //*************************************
+      double final;
+     // printf("\n"); 
+      clock_t inicio= clock();
+       vizualizar(raiz);
+      final= (((double)clock() - inicio) / CLOCKS_PER_SEC);
+      printf("Tiempo en Recorrer El arbol : %f seg",final); 
+       //*******************************************  
+      int num= numDatos(raiz);
+      printf("\n\nTiempo Total en Insertar  %d Datos al Arbol : %f seg", num,tiempoTotal);
+      fclose(flujo);
+      printf("\n\n El archivo a sido leido correctamente.");
+   
+    
+
+}
+
+int principal2(){
+
+Nodo * raiz;
+    raiz=NULL;
+   
+   // inicio del archivo 
+    FILE *flujo = fopen("mis_numeros.txt","rb");
+    if(flujo==NULL){
+        perror("error");
+        return 1;
+    }
+    int numero;
+    double end;
+   while (feof(flujo)==0){
+    
+        fscanf(flujo,"%d \n",&numero);
+        
+   
+    }
+     double final;
+    
+      clock_t inicio= clock();
+      // metodo de recorrido burbuja;
+      final= (((double)clock() - inicio) / CLOCKS_PER_SEC);
+      printf("Tiempo en Recorrer El arbol : %f seg",final); 
+      
+  
+      fclose(flujo);
+      printf("\n\n El archivo a sido leido correctamente.");
+   
+    
+
+
+}
+int principal3(){
+Nodo * raiz;
+    raiz=NULL;
+   
+   // inicio del archivo 
+    FILE *flujo = fopen("mis_numeros.txt","rb");
+    if(flujo==NULL){
+        perror("error");
+        return 1;
+    }
+    int numero;
+    double end;
+   while (feof(flujo)==0){
+    
+        fscanf(flujo,"%d \n",&numero);
+        
+   
+    }
+     double final;
+    
+      clock_t inicio= clock();
+      // metodo de recorrido quikSort;
+      final= (((double)clock() - inicio) / CLOCKS_PER_SEC);
+      printf("Tiempo en Recorrer El arbol : %f seg",final); 
+      
+  
+      fclose(flujo);
+      printf("\n\n El archivo a sido leido correctamente.");
+   
+    
+
+
+
+}
 
 
