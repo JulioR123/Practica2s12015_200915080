@@ -10,6 +10,7 @@
 #include <string.h>
 #include <time.h>
 
+
 /*
  *
  */
@@ -68,15 +69,53 @@ int principal1();
       NodoLista *partition(NodoLista *head, NodoLista *end,NodoLista **newHead, NodoLista**newEnd);
       NodoLista *quickSortRecur(NodoLista *head, NodoLista *end);
       void quickSort(NodoLista **headRef);
-          
-
-int main(int argc, char** argv) {
-
+      
+      
+      
+      
+      
+      
+      //*******************
+      
+      
+      
+      
+      
+      
+      
+      //*******************
+     
+      
+      
     
+int main(int argc, char** argv) {
+   
+   
+   principal1();
+    
+    
+    
+    
+   
+    /*
+   int i,j;
+    
+      FILE *archivo;
+     archivo=fopen("numeros.txt", "w");
+     if(archivo==NULL)"
+        return 1;
+     
+     for(i=100000;i>=0;i--){
+        
+     fprintf(archivo,"%d \n",i);
+     }
+     
+     fclose(archivo);
+     return 0;
     
     
     principal1();
-    
+    */
     return (EXIT_SUCCESS);
 }
 
@@ -277,7 +316,8 @@ void vizualizar(Nodo* r){
 
         int izq,der;
         vizualizar(r->izdo);
-        printf(" ");
+       // printf("%d",r->dato);
+       
         vizualizar(r->dcho);
 
 
@@ -400,9 +440,7 @@ int numDatos(Nodo* r){
           
           }
     
-          
-          
-          
+           
           
           
           
@@ -413,16 +451,23 @@ void push(NodoLista** head_ref, int new_data)
     /* allocate node */
     NodoLista *new_node;
     new_node= (NodoLista*)malloc(sizeof(NodoLista));
-    
- 
-    /* put in the data  */
     new_node->data  = new_data;
+  //  new_node->next = NULL;
  
-    /* link the old list off the new node */
-    new_node->next = (*head_ref);
- 
+    if (head_ref==NULL){
+    
+        (*head_ref)->next= NULL;
+        
+         (*head_ref)=new_node;
+    }
+    else{
+        new_node->next= (*head_ref);
+        (*head_ref)= new_node;
+        
+    
+    }
     /* move the head to point to the new node */
-    (*head_ref)    = new_node;
+  //  (*head_ref)    = new_node;
 }
  
 /* A utility function to print linked list */
@@ -545,7 +590,9 @@ void quickSort(NodoLista **headRef)
 
 
 int principal1(){
- 
+
+    
+     
  Nodo * raiz;
  raiz=NULL;
  
@@ -553,18 +600,18 @@ int principal1(){
     NodoLista1 *raiz1;
     raiz1= NULL;
    
-    
+     int numero;
+    double end;
+    double tiempoTotal;
 
    // inicio del archivo
-    FILE *flujo = fopen("mis_numeros.txt","rb");
+    FILE *flujo = fopen("num.txt","rb");
     if(flujo==NULL){
         perror("error");
         return 1;
     }
-    int numero;
-    int n;
-    double end;
-    double tiempoTotal;
+    
+    
     while (feof(flujo)==0){
 
         fscanf(flujo,"%d \n",&numero);
@@ -575,14 +622,25 @@ int principal1(){
         end=  (((double)clock() - start) / CLOCKS_PER_SEC);
         tiempoTotal+=end;
         printf("Tiempo transcurrido : %f seg", end);
-        printf("\n");
-        push(&a, numero);
-        raiz1= agregar(raiz1,numero);
+     
+       printf("\n");
+       push(&a, numero);
+       raiz1= agregar(raiz1,numero);
        
-
+     
+       
+     
+     
+     
+     
+    
       //**********************************
 
     }
+    
+   
+    
+    
       
      double final;
        clock_t inicio= clock();
@@ -595,7 +653,18 @@ int principal1(){
       printf("\n\nTiempo Total en Insertar  %d Datos al Arbol : %f seg", num,tiempoTotal);
       
       printf("\n\n");
-      
+     
+       
+       double end2;
+       clock_t start2= clock();
+       ordenarLista(raiz1);
+      end2= (((double)clock() - start2) / CLOCKS_PER_SEC);
+       printf("Tiempo en Ordenar Metodo Burbuja : %f seg",end2);
+       
+       
+       
+       printf("\n\n");
+         
       double end1;
       clock_t start1= clock();
       quickSort(&a);
@@ -604,13 +673,8 @@ int principal1(){
       
        printf("\n\n");
        
-       
-       double end2;
-       clock_t start2= clock();
-       ordenarLista(raiz1);
-      end2= (((double)clock() - start2) / CLOCKS_PER_SEC);
-       printf("Tiempo en Ordenar Metodo Burbuja : %f seg",end2);
-      
+    
+     //  printf("NOTA: El metodo quicksor es mas lento con listas. con areglos nativos es super rapido.");
       // ordenarLista(raiz1);
        
        printf("\n\n");
@@ -618,14 +682,50 @@ int principal1(){
         printf("SALIDA ORDENADA\n");
         printf("\n");
        printList(a);
-       printf("\n\n");
+      //  showList(raiz1);
+        printf("\n\n");
        
        printf("SALIDA RECORRIDO ARBOL\n");
        printf("\n");
-       vizualizar2(raiz);            
+       vizualizar2(raiz); 
+       
+      
        
       fclose(flujo);
       printf("\n\n El archivo a sido leido correctamente.");
+      
+      
+  
+     
+   
+      FILE *archivo;
+     archivo=fopen("escribo.txt", "w");
+
+    while (feof(flujo)==0){
+    
+     int i,j;
+    
+    
+     if(archivo==NULL)
+        return 1;
+     
+     
+        
+     fprintf(archivo,"%f \n",end);
+     
+     
+     fclose(archivo);
+     return 0;
+    
+    
+    }
+    
+    
+    
+   
+    
+    
+      
 
       //************************************************
       // final del archivo
@@ -633,6 +733,8 @@ int principal1(){
      // return 0;
 
 }
+
+
 
 
 
