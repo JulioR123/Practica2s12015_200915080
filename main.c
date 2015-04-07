@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 
 /*
@@ -69,7 +70,7 @@ int principal1();
       NodoLista *partition(NodoLista *head, NodoLista *end,NodoLista **newHead, NodoLista**newEnd);
       NodoLista *quickSortRecur(NodoLista *head, NodoLista *end);
       void quickSort(NodoLista **headRef);
-      
+      int menu();
       
       
       
@@ -79,23 +80,120 @@ int principal1();
       
       
       
+      void qsorts(int lista[],int limite_izq,int limite_der)
+	{
+	    int izq,der,temporal,pivote;
+	 
+	    izq=limite_izq;
+	    der = limite_der;
+	    pivote = lista[(izq+der)/2];
+	 
+	    do{
+	        while(lista[izq]<pivote && izq<limite_der)izq++;
+	        while(pivote<lista[der] && der > limite_izq)der--;
+	        if(izq <=der)
+	        {
+	            temporal= lista[izq];
+	            lista[izq]=lista[der];
+	            lista[der]=temporal;
+	            izq++;
+	            der--;
+	 
+	        }
+	 
+	    }while(izq<=der);
+	    if(limite_izq<der){qsorts(lista,limite_izq,der);}
+	    if(limite_der>izq){qsorts(lista,izq,limite_der);}
+	 
+	}
       
       
+      void quicksort(int lista[],int n)
+	{
+	    qsorts(lista,0,n-1);
+	}
       
+      
+      void Burbuja(int a[],int n){
+      
+          int i,j;
+          int indiceIntercambio;
+          i=n-1;
+          while(i>0){
+              
+              indiceIntercambio=0;
+              for(j=0;j<i;j++)
+              
+                  if(a[j+1]<a[j]){
+                  
+                      int aux=a[j];
+                      a[j]=a[j+1];
+                      a[j+1]=aux;
+                      indiceIntercambio=j;
+                  
+                  }
+              
+              
+              i=indiceIntercambio;
+          
+          }
+      }
       
       //*******************
      
-      
-      
     
+/*
+ *  Si definisce una funzione f(x) qualsiasi
+ */
+
+
+  
 int main(int argc, char** argv) {
+ /* int lista[] ={100,56,0,1,-45,2,46,5,9,6,67,23,5};
+  int size = sizeof(lista)/sizeof(int);
+  int i=0;
+  
+  int lista1[13];
+  Burbuja(lista,size);
+   printf("Lista Ordenada \n");
+	    for ( i=0; i<size; i++) {
+	        printf("%d",lista[i]);
+	        if(i<size-1)
+	            printf(",");
+	    }  
+    
+   */ 
+    
+printf("\n\t********************");
+printf("\n\t****BIENVENIDO******");
+printf("\n\t********************");
+    //system("gnuplot");
    
-   
-   principal1();
+int op;
+
+while((op=menu())!=5)
+{
+switch(op)
+{
+case 1:
+    principal1();
+break;
+case 2:
     
+    system("gnuplot");
+
     
+break;
+case 3:
+break;
+
+}
+}
+
+
+
     
-    
+   // principal1();
    
     /*
    int i,j;
@@ -120,7 +218,22 @@ int main(int argc, char** argv) {
 }
 
 
+int menu()
+{
+int op;
+do{
 
+printf("\n\t 1.Analizar Archivo.");
+printf("\n\t 2. Graficar.");
+printf("\n\t 3.Salir.");
+printf("\n\t Seleccione opcion: ");
+
+
+
+scanf("%d",&op);
+}while(op<1 || op>4);
+return op;
+}
 
 
 // funciones de rotacion dobles y simples...
@@ -434,7 +547,7 @@ int numDatos(Nodo* r){
               NodoLista1 *aux;
               aux=apuntador;
               while(aux!=NULL){
-                  printf("Dato:%d\n",aux->dato);
+                  printf(" %d",aux->dato);
                   aux=aux->sig;
               }
           
@@ -584,7 +697,15 @@ void quickSort(NodoLista **headRef)
     
 
 
-
+ void llenar(int Array[], int n)
+    {
+        int i;
+        int valor;
+        for(i=0; i<n;n++)        {
+           
+            Array[i] = valor;
+        }
+    }
 
 
 
@@ -592,9 +713,11 @@ void quickSort(NodoLista **headRef)
 int principal1(){
 
     
-     
+  
  Nodo * raiz;
  raiz=NULL;
+ char ruta[200];
+ 
  
  NodoLista *a = NULL;
     NodoLista1 *raiz1;
@@ -603,15 +726,19 @@ int principal1(){
      int numero;
     double end;
     double tiempoTotal;
-
+   FILE *archivo;
+   archivo=fopen("tiempo.txt", "w");
    // inicio del archivo
-    FILE *flujo = fopen("num.txt","rb");
+   printf(" Ingrese Ruta de Archivo ");
+   scanf("%s",ruta);
+    FILE *flujo = fopen(ruta,"rb");
     if(flujo==NULL){
         perror("error");
         return 1;
     }
     
     
+   
     while (feof(flujo)==0){
 
         fscanf(flujo,"%d \n",&numero);
@@ -622,11 +749,17 @@ int principal1(){
         end=  (((double)clock() - start) / CLOCKS_PER_SEC);
         tiempoTotal+=end;
         printf("Tiempo transcurrido : %f seg", end);
-     
+        fprintf(archivo,"%f \n",end);
        printf("\n");
+       /* llenado de listas*/
        push(&a, numero);
        raiz1= agregar(raiz1,numero);
-       
+   
+        
+  
+     
+     
+    
      
        
      
@@ -679,12 +812,17 @@ int principal1(){
        
        printf("\n\n");
        
-        printf("SALIDA ORDENADA\n");
+        printf("SALIDA ORDENADA QUICKSORT\n");
         printf("\n");
        printList(a);
       //  showList(raiz1);
         printf("\n\n");
+        
+        printf("SALIDA ORDENADA BURBUJA\n");
+        printf("\n");
+        showList(raiz1);
        
+       printf("\n\n");
        printf("SALIDA RECORRIDO ARBOL\n");
        printf("\n");
        vizualizar2(raiz); 
@@ -695,30 +833,15 @@ int principal1(){
       printf("\n\n El archivo a sido leido correctamente.");
       
       
-  
+   fclose(archivo);
+         
+    
      
    
-      FILE *archivo;
-     archivo=fopen("escribo.txt", "w");
-
-    while (feof(flujo)==0){
-    
-     int i,j;
     
     
-     if(archivo==NULL)
-        return 1;
-     
-     
-        
-     fprintf(archivo,"%f \n",end);
-     
-     
-     fclose(archivo);
-     return 0;
     
     
-    }
     
     
     
